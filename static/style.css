@@ -1,0 +1,188 @@
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --dark-light: #393F46;
+  --main-bg-color: #343a40;
+  --receiver-bg-color: #F5F5F5;
+  --sender-bg-color: #F5F5F5;
+  --top-section: #343a40;
+}
+
+
+/* Main Structure */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+
+h3 {
+  font-family: 'Dancing Script', serif;
+  font-size: 55px;
+  text-shadow: 4px 4px 4px #555;
+
+}
+
+.top-section {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /*  height: 10%;*/
+  padding: 1%;
+}
+
+.middle-section {
+  height: 70%;
+/*  width: 100%;*/
+  overflow-x: hidden;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-top: 6%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.bottom-section {
+  height: 10%;
+  width: 100%;
+/*  margin-top: 90%;*/
+  position: absolute;
+  bottom: 0;
+  padding-top: 0.5%;
+  padding-left: 8%;
+  padding-right: 8%;
+  margin-bottom: 3%;
+}
+
+/* Chat */
+.sender {
+    padding: 2% !important;
+/*    display:block;*/
+}
+
+.receiver {
+    padding: 2% !important;
+/*    display:block;*/
+    background: var(--dark-light);
+}
+
+textarea:focus,
+#message-input:focus{   
+  border-color: rgba(126, 239, 104, 0.8);
+  border-color: var(--green);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+  border-radius: 5px 0px 0px 5px;
+}
+#message-input{
+  border-radius: 5px 0px 0px 5px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.text-wrap::-webkit-scrollbar, 
+.middle-section::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.text-wrap::-webkit-scrollbar, 
+.middle-section::-webkit-scrollbar,
+.middle-section,
+.text-wrap{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+} 
+
+
+/* Override Bootstrap styles for Prism code blocks */
+pre[class*="language-"] {
+  margin-bottom: 1rem;
+  font-size: 14px;
+  line-height: 1.375;
+  tab-size: 4;
+  hyphens: none;
+}
+pre[class*="language-"]::before {
+  content: "";
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 75%;
+  color: #999;
+  counter-increment: section;
+}
+code[class*="language-"] {
+  font-size: 14px;
+  line-height: 1.375;
+  -webkit-hyphens: none;
+     -moz-hyphens: none;
+          hyphens: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+@media (min-width: 576px) {
+  pre[class*="language-"] {
+    padding-left: 11.5rem;
+  }
+  pre[class*="language-"]::before {
+    position: absolute;
+    top: 0.75rem;
+    left: 0;
+    width: 10.5rem;
+    text-align: right;
+    padding-right: 0.5rem;
+    font-weight: bold;
+    border-right: 3px solid #ccc;
+    content: counter(section) ". ";
+  }
+}
+@media (max-width: 576px) {
+  pre[class*="language-"] {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  pre[class*="language-"]::before {
+    display: none;
+  }
+}
+
+/* Override Prism styles for Pre elements outside code blocks */
+pre {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  overflow: auto;
+  padding: 1rem;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: #202124;
+  color: #E0E9F3 !important;
+}
+pre code {
+  font-size: inherit;
+  color: inherit;
+  word-break: normal;
+}

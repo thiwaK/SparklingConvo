@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rosi</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='highlight.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Sawarabi+Mincho|Dancing+Script|Comfortaa|Courgette">
+    </head>
+<body class="text-white bg-dark">
+    <div class="top-section text-center text-white bg-dark">
+      <h3>Rosi</h3>
+    </div>
+
+    <div class="middle-section text-white bg-dark">
+      <div class="text-wrap" id="message-area"></div>
+    </div>
+
+    <div class="bottom-section text-white bg-dark">
+      <form id="message-form">
+            <div class="form-group">
+            <div class="input-group mb-4">
+              <textarea class="form-control" name="message-input" rows="1" id="message-input" placeholder="Type your message here..."></textarea>
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-outline-success">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"></path>
+                </button>
+              </div>
+            </div>
+
+            </div>
+        </form>
+    </div>
+</body>
+<!-- <script src="{{ url_for('static', filename='jquery.min.js') }}"></script> -->
+<!-- <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script> -->
+<script src="{{ url_for('static', filename='marked.min.js') }}"></script>
+<script src="{{ url_for('static', filename='highlight.min.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+<script>hljs.highlightAll();</script>
+
+
+</html>
