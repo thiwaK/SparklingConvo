@@ -6,12 +6,12 @@ SparklingConvo is a Python-based Flask web app that connects to OpenAI's GPT-3 A
 Before running this application, please make sure that you have the following dependencies installed:
 - Python 3 🐍
 - Flask 🌶️
-- OpenAI API key 🔑
+- OpenAI 🕸
 
 ## 🚀 Getting Started
 1. Clone or download the SparklingConvo repository to your local machine.
 2. Add your OpenAI API key to the `settings.config` file located in the root directory.
-~~3. Install the necessary dependencies by running `pip install -r requirements.txt` in your terminal.~~
+3. ~~Install the necessary dependencies by running `pip install -r requirements.txt` in your terminal.~~
 4. Start the application by running `python app.py` in your terminal.
 
 ### ⚙️ Configuration file
