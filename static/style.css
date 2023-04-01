@@ -38,9 +38,9 @@ html, body {
 }
 
 
-h3 {
+.navbar-brand {
   font-family: 'Dancing Script', serif;
-  font-size: 55px;
+  font-size: 1.7em;
   text-shadow: 4px 4px 4px #555;
 
 }
@@ -98,6 +98,11 @@ textarea:focus,
 }
 #message-input{
   border-radius: 5px 0px 0px 5px;
+}
+
+#load-chat {
+  overflow-y: scroll;
+  max-height: 300px;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

@@ -9,13 +9,58 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='highlight.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Sawarabi+Mincho|Dancing+Script|Comfortaa|Courgette">
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Sawarabi+Mincho|Dancing+Script|Comfortaa|Courgette"> -->
     </head>
-<body class="text-white bg-dark">
-    <div class="top-section text-center text-white bg-dark">
-      <h3>Rosi</h3>
-    </div>
 
+<body class="text-white bg-dark">
+
+      
+
+
+    <div class="top-section text-center text-white bg-dark">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Rosi</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+          <div class="btn-group">
+
+            <button type="button" id="new-chat" class="btn btn-outline-primary ">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+            </svg> New 
+            </button>
+
+
+            <button type="button" id="delete-chat" class="btn btn-outline-danger">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+            </svg> Delete 
+            </button>
+          </div>
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown2">
+          <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2z"/>
+            <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
+          </svg> Load Chat </button>
+          <div class="dropdown-menu dropdown-menu-right" id="load-chat">
+            <!-- <a class="dropdown-item" href="#">Action</a> -->
+            <!-- <a class="dropdown-item" href="#">Another action</a> -->
+            <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+            <!-- <div class="dropdown-divider"></div> -->
+            <!-- <a class="dropdown-item" href="#">Separated link</a> -->
+          </div>
+        </div>
+      </nav>
+
+    </div>
+    
     <div class="middle-section text-white bg-dark">
       <div class="text-wrap" id="message-area"></div>
     </div>
@@ -36,14 +81,13 @@
             </div>
         </form>
     </div>
+
 </body>
-<!-- <script src="{{ url_for('static', filename='jquery.min.js') }}"></script> -->
-<!-- <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script> -->
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='marked.min.js') }}"></script>
 <script src="{{ url_for('static', filename='highlight.min.js') }}"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
-
-<script>hljs.highlightAll();</script>
 
 
 </html>

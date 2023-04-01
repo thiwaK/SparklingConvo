@@ -2,6 +2,7 @@
 const messageForm = document.querySelector('#message-form');
 const messageInput = document.querySelector('#message-input');
 const messageArea = document.querySelector('#message-area');
+const dropDown = document.querySelector('#load-chat');
 const clientAlias = "You";
 const serverAlias = "Bot";
 const clientImg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#dc3545\" \
@@ -36,10 +37,109 @@ function addMessage(origin, message) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
+function deleteLoadedHistory(){
+    document.querySelector('#message-area').innerHTML = "";
+}
+
+function loadHistory(chat_id) {
+    fetch('/history', {
+        method: 'POST',
+        body: JSON.stringify({
+            chat_id: chat_id
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    .then(response => response.json())
+    .then(data => {
+        
+        console.log('AI: ' + data);
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].role === 'user') {
+                addMessage(clientAlias, data[i].content);
+            }
+            else if (data[i].role === 'system') {
+                console.log(data[i].content);
+            }
+            else{
+                addMessage(serverAlias, data[i].content);
+            }
+            
+        }
+    })
+    .catch(error => console.error(error));
+}
+    
+function updateChats(chats) {
+    for(let i = 0; i < chats.length; i++) {
+        let obj = chats[i];
+        let chat_id = obj[0]
+        let chat_name = obj[1]
+        dropDown.innerHTML = dropDown.innerHTML + "<a class=\"dropdown-item\" id=\"" + chat_id + "\">" + chat_name + "</a>"
+    }
+}
+
+function getChats() {
+    fetch('/chats', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    .then(response => response.json())
+    .then(data => {
+        console.log('getChats: ' + data);
+        if (data === null){
+            dropDown.style.display = "none" 
+        } else {
+            updateChats(data);
+        }
+        
+    })
+    .catch(error => console.error(error));
+}
+
+function updatePlaceHolder() {
+    const quote = [
+        "I'll choose you over and over and over. Without pause, without a doubt, in a heartbeat. I'll keep choosing you.",
+        "In a sea of people, my eyes will always search for you.",
+        "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart.",
+    ]
+    const item = quote[Math.floor(Math.random()*quote.length)];
+    //console.log(item);
+    messageInput.placeholder = item;
+}
+
+function sendMessage(message) {
+    fetch('/send_message', {
+        method: 'POST',
+        body: JSON.stringify({
+            message: message
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    .then(response => response.json())
+    .then(data => {
+        // console.log('AI: ' + data['role']);
+        // console.log('AI: ' + data['content']);
+        addMessage(serverAlias, data['content']);
+    })
+    .catch(error => console.error(error));
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+});
 
+window.addEventListener("load", () => {
+
+    console.log("page is fully loaded");
+    
     messageForm.addEventListener('submit', event => {
         event.preventDefault();
         const message = messageInput.value;
@@ -52,62 +152,15 @@ document.addEventListener('DOMContentLoaded', () => {
         messageInput.value = '';
     });
 
-    
+    dropDown.addEventListener('click', function(event) {
+        deleteLoadedHistory();
+        // console.log(event.target.tagName, event.target.innerText, event.target.id);
+        loadHistory(event.target.id);
+    });
 
-    function sendMessage(message) {
-        fetch('/send_message', {
-            method: 'POST',
-            body: JSON.stringify({
-                message: message
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        .then(response => response.json())
-        .then(data => {
-            // console.log('AI: ' + data['role']);
-            // console.log('AI: ' + data['content']);
-            addMessage(serverAlias, data['content']);
-        })
-        .catch(error => console.error(error));
-    }
-});
-
-window.addEventListener("load", () => {
-
-    console.log("page is fully loaded");
-    function loadHistory(message) {
-        fetch('/history', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        .then(response => response.json())
-        .then(data => {
-            
-            // console.log('AI: ' + data[0].content);
-            
-            for (var i = 0; i < data.length; i++) {
-                // console.log('AI: ' + data[i].role);
-                if (data[i].role === 'user') {
-                    addMessage(clientAlias, data[i].content);
-                }
-                else if (data[i].role === 'system') {
-                    console.log(data[i].content);
-                }
-                else{
-                    addMessage(serverAlias, data[i].content);
-                }
-                
-            }
-        })
-        .catch(error => console.error(error));
-    }
-    loadHistory();
-
+    getChats();
+    updatePlaceHolder();
     hljs.highlightAll();
+
 });
+
