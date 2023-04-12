@@ -28,9 +28,20 @@
 }
 
 
+.dropdown-item:hover {
+  background-color: #007bff;
+}
+
+.dropdown-menu:hover .dropdown-item {
+  display: block;
+}
+
+
+
 /* Main Structure */
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   overflow-y: hidden;
@@ -55,7 +66,7 @@ html, body {
 
 .middle-section {
   height: 70%;
-/*  width: 100%;*/
+  /*  width: 100%;*/
   overflow-x: hidden;
   margin-left: 0%;
   margin-right: 0%;
@@ -67,7 +78,7 @@ html, body {
 .bottom-section {
   height: 10%;
   width: 100%;
-/*  margin-top: 90%;*/
+  /*  margin-top: 90%;*/
   position: absolute;
   bottom: 0;
   padding-top: 0.5%;
@@ -78,25 +89,45 @@ html, body {
 
 /* Chat */
 .sender {
-    padding: 2% !important;
-/*    display:block;*/
+  padding: 2% !important;
+  /*    display:block;*/
 }
 
 .receiver {
-    padding: 2% !important;
-/*    display:block;*/
-    background: var(--dark-light);
+  padding: 2% !important;
+  /*    display:block;*/
+  background: var(--dark-light);
 }
 
+/*--------------------------------------------------
+Remove glowing border effect on click and on focus 
+----------------------------------------------------*/
+button:focus,
+#form-control:focus,
 textarea:focus,
-#message-input:focus{   
-  border-color: rgba(126, 239, 104, 0.8);
-  border-color: var(--green);
-/*  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(126, 239, 104, 0.6);*/
+#message-input:focus {
   outline: 0 none;
   border-radius: 5px 0px 0px 5px;
 }
-#message-input{
+
+.btn:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+
+.btn:active {
+  padding: 3px;
+  transition: all 0.9s
+}
+
+.btn:hover {
+  box-shadow: 1px 1px 2px rgba(#fff, .2);
+  transition: all 250ms linear;
+}
+
+/* -------------------------------------------------- */
+
+#message-input {
   border-radius: 5px 0px 0px 5px;
 }
 
@@ -105,29 +136,37 @@ textarea:focus,
   max-height: 300px;
 }
 
+#dropdown-menu {
+  z-index: 999;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
-.text-wrap::-webkit-scrollbar, 
+.text-wrap::-webkit-scrollbar,
 .middle-section::-webkit-scrollbar {
   display: none;
 }
+
 /* Hide scrollbar for IE, Edge and Firefox */
-.text-wrap::-webkit-scrollbar, 
+.text-wrap::-webkit-scrollbar,
 .middle-section::-webkit-scrollbar,
 .middle-section,
-.text-wrap{
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-} 
+.text-wrap {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
 
 
 /* Override Bootstrap styles for Prism code blocks */
-pre[class*="language-"] {
+/* pre[class*="language-"] {
   margin-bottom: 1rem;
   font-size: 14px;
   line-height: 1.375;
   tab-size: 4;
   hyphens: none;
 }
+
 pre[class*="language-"]::before {
   content: "";
   display: block;
@@ -136,19 +175,22 @@ pre[class*="language-"]::before {
   color: #999;
   counter-increment: section;
 }
+
 code[class*="language-"] {
   font-size: 14px;
   line-height: 1.375;
   -webkit-hyphens: none;
-     -moz-hyphens: none;
-          hyphens: none;
+  -moz-hyphens: none;
+  hyphens: none;
   white-space: pre-wrap;
   word-break: break-word;
 }
+
 @media (min-width: 576px) {
   pre[class*="language-"] {
     padding-left: 11.5rem;
   }
+
   pre[class*="language-"]::before {
     position: absolute;
     top: 0.75rem;
@@ -161,6 +203,7 @@ code[class*="language-"] {
     content: counter(section) ". ";
   }
 }
+
 @media (max-width: 576px) {
   pre[class*="language-"] {
     margin-left: -0.75rem;
@@ -168,16 +211,17 @@ code[class*="language-"] {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   pre[class*="language-"]::before {
     display: none;
   }
-}
+}*/
 
 /* Override Prism styles for Pre elements outside code blocks */
-pre {
+/*pre {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(0,0,0,.125);
+  border: 1px solid rgba(0, 0, 0, .125);
   border-radius: .25rem;
   overflow: auto;
   padding: 1rem;
@@ -186,8 +230,9 @@ pre {
   background-color: #202124;
   color: #E0E9F3 !important;
 }
+
 pre code {
   font-size: inherit;
   color: inherit;
   word-break: normal;
-}
+} */

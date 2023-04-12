@@ -16,6 +16,7 @@ class Chat:
 		self.log = logging.getLogger(__name__)
 		self.log.info("Initalizing")
 		self.db = Database()
+		self.maximum_number_of_diogues = 8
 
 		with open("settings.config") as f:
 			openai.api_key = json.load(f)["openai_key"]
@@ -92,10 +93,16 @@ class Chat:
 	def talk(self, message):
 		print(message)
 		self.messages.append({"role": "user", "content": message})
-		response = openai.ChatCompletion.create(
-			model="gpt-3.5-turbo",
-			messages=self.messages
-		)
+		if (len(self.messages) > self.maximum_number_of_diogues):
+			response = openai.ChatCompletion.create(
+				model="gpt-3.5-turbo",
+				messages=self.messages[-1 * self.maximum_number_of_diogues:]
+			)
+		else:
+			response = openai.ChatCompletion.create(
+				model="gpt-3.5-turbo",
+				messages=self.messages
+			)
 		self.messages.append({"role": "assistant", "content": response["choices"][0]["message"].content})
 		self.update_history()
 		return response["choices"][0]["message"]

@@ -35,6 +35,8 @@ function addMessage(origin, message) {
     messageElement.innerHTML =  imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + marked.parse(message)  + "</div>";
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+
+    hljs.highlightAll();
 }
 
 function deleteLoadedHistory(){
