@@ -28,17 +28,11 @@
 }
 
 
-.dropdown-item:hover {
-  background-color: #007bff;
-}
-
-.dropdown-menu:hover .dropdown-item {
-  display: block;
-}
 
 
-
-/* Main Structure */
+/*-------------- 
+Main Structure 
+----------------*/
 
 html,
 body {
@@ -99,6 +93,28 @@ body {
   background: var(--dark-light);
 }
 
+#message-input {
+  border-radius: 5px 0px 0px 5px;
+}
+
+#load-chat {
+  overflow-y: scroll;
+  max-height: 300px;
+}
+
+#dropdown-menu {
+  z-index: 999;
+}
+
+
+.dropdown-item:hover {
+  background-color: #007bff;
+}
+
+.dropdown-menu:hover .dropdown-item {
+  display: block;
+}
+
 /*--------------------------------------------------
 Remove glowing border effect on click and on focus 
 ----------------------------------------------------*/
@@ -127,18 +143,6 @@ textarea:focus,
 
 /* -------------------------------------------------- */
 
-#message-input {
-  border-radius: 5px 0px 0px 5px;
-}
-
-#load-chat {
-  overflow-y: scroll;
-  max-height: 300px;
-}
-
-#dropdown-menu {
-  z-index: 999;
-}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .text-wrap::-webkit-scrollbar,
@@ -158,81 +162,15 @@ textarea:focus,
 }
 
 
-/* Override Bootstrap styles for Prism code blocks */
-/* pre[class*="language-"] {
-  margin-bottom: 1rem;
-  font-size: 14px;
-  line-height: 1.375;
-  tab-size: 4;
-  hyphens: none;
+/*------------------------------
+Sender syntax highlight change
+------------------------------*/
+
+#sender-md span {
+  font-weight: 100;
+  color: #ddd;
 }
 
-pre[class*="language-"]::before {
-  content: "";
-  display: block;
-  margin-top: 1.5rem;
-  font-size: 75%;
-  color: #999;
-  counter-increment: section;
+#sender-md {
+  background: #343a40;
 }
-
-code[class*="language-"] {
-  font-size: 14px;
-  line-height: 1.375;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  hyphens: none;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-@media (min-width: 576px) {
-  pre[class*="language-"] {
-    padding-left: 11.5rem;
-  }
-
-  pre[class*="language-"]::before {
-    position: absolute;
-    top: 0.75rem;
-    left: 0;
-    width: 10.5rem;
-    text-align: right;
-    padding-right: 0.5rem;
-    font-weight: bold;
-    border-right: 3px solid #ccc;
-    content: counter(section) ". ";
-  }
-}
-
-@media (max-width: 576px) {
-  pre[class*="language-"] {
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  pre[class*="language-"]::before {
-    display: none;
-  }
-}*/
-
-/* Override Prism styles for Pre elements outside code blocks */
-/*pre {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(0, 0, 0, .125);
-  border-radius: .25rem;
-  overflow: auto;
-  padding: 1rem;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #202124;
-  color: #E0E9F3 !important;
-}
-
-pre code {
-  font-size: inherit;
-  color: inherit;
-  word-break: normal;
-} */

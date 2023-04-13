@@ -31,7 +31,8 @@ function addMessage(origin, message) {
     if (origin === clientAlias) {
         messageElement.className = 'sender row'
         imageMarkup = "<div style=\"width: 0.8%\" class=\"mr-1\">" + clientImg + "</div>"
-        messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + marked.parse(message) + "</div>";
+        messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\"><pre><code id=\"sender-md\" class=\"language-markdown\">" +
+            "" + message + "</code></pre></div>";
         // messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + converter.makeHtml(message) + "</div>";
         messageArea.appendChild(messageElement);
     } else {
