@@ -20,26 +20,38 @@ viewBox=\"0 0 16 16\"><path d=\"M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.
 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 \
 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Z\"/></svg>"
 
+// var converter = new showdown.Converter();
+// converter.setFlavor('vanilla');
+
+
 function addMessage(origin, message) {
     const messageElement = document.createElement('div');
     var imageMarkup = "";
-    
-    if (origin === clientAlias){
+
+    if (origin === clientAlias) {
         messageElement.className = 'sender row'
         imageMarkup = "<div style=\"width: 0.8%\" class=\"mr-1\">" + clientImg + "</div>"
-    }else{
+        messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + marked.parse(message) + "</div>";
+        // messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + converter.makeHtml(message) + "</div>";
+        messageArea.appendChild(messageElement);
+    } else {
         messageElement.className = 'receiver row'
         imageMarkup = "<div style=\"width: 0.8%\" class=\"mr-1\">" + botImg + "</div>"
+        messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + marked.parse(message) + "</div>";
+        // messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + converter.makeHtml(message) + "</div>";
+        messageArea.appendChild(messageElement);
     }
-    
-    messageElement.innerHTML =  imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + marked.parse(message)  + "</div>";
-    messageArea.appendChild(messageElement);
+
     messageArea.scrollTop = messageArea.scrollHeight;
 
     hljs.highlightAll();
+    // md();
+    // convertMarkdownToHtml();
+    messageArea.scrollTop = messageArea.scrollHeight;
+    messageArea.scrollIntoView(false);
 }
 
-function deleteLoadedHistory(){
+function deleteLoadedHistory() {
     document.querySelector('#message-area').innerHTML = "";
 }
 
@@ -54,28 +66,28 @@ function loadHistory(chat_id) {
         }
     })
 
-    .then(response => response.json())
-    .then(data => {
-        
-        console.log('AI: ' + data);
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].role === 'user') {
-                addMessage(clientAlias, data[i].content);
+        .then(response => response.json())
+        .then(data => {
+
+            console.log('AI: ' + data);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].role === 'user') {
+                    addMessage(clientAlias, data[i].content);
+                }
+                else if (data[i].role === 'system') {
+                    console.log(data[i].content);
+                }
+                else {
+                    addMessage(serverAlias, data[i].content);
+                }
+
             }
-            else if (data[i].role === 'system') {
-                console.log(data[i].content);
-            }
-            else{
-                addMessage(serverAlias, data[i].content);
-            }
-            
-        }
-    })
-    .catch(error => console.error(error));
+        })
+        .catch(error => console.error(error));
 }
-    
+
 function updateChats(chats) {
-    for(let i = 0; i < chats.length; i++) {
+    for (let i = 0; i < chats.length; i++) {
         let obj = chats[i];
         let chat_id = obj[0]
         let chat_name = obj[1]
@@ -91,17 +103,17 @@ function getChats() {
         }
     })
 
-    .then(response => response.json())
-    .then(data => {
-        console.log('getChats: ' + data);
-        if (data === null){
-            dropDown.style.display = "none" 
-        } else {
-            updateChats(data);
-        }
-        
-    })
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => {
+            console.log('getChats: ' + data);
+            if (data === null) {
+                dropDown.style.display = "none"
+            } else {
+                updateChats(data);
+            }
+
+        })
+        .catch(error => console.error(error));
 }
 
 function updatePlaceHolder() {
@@ -110,7 +122,7 @@ function updatePlaceHolder() {
         "In a sea of people, my eyes will always search for you.",
         "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart.",
     ]
-    const item = quote[Math.floor(Math.random()*quote.length)];
+    const item = quote[Math.floor(Math.random() * quote.length)];
     //console.log(item);
     messageInput.placeholder = item;
 }
@@ -126,13 +138,13 @@ function sendMessage(message) {
         }
     })
 
-    .then(response => response.json())
-    .then(data => {
-        // console.log('AI: ' + data['role']);
-        // console.log('AI: ' + data['content']);
-        addMessage(serverAlias, data['content']);
-    })
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => {
+            // console.log('AI: ' + data['role']);
+            // console.log('AI: ' + data['content']);
+            addMessage(serverAlias, data['content']);
+        })
+        .catch(error => console.error(error));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -141,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener("load", () => {
 
     console.log("page is fully loaded");
-    
+
     messageForm.addEventListener('submit', event => {
         event.preventDefault();
         const message = messageInput.value;
@@ -154,7 +166,7 @@ window.addEventListener("load", () => {
         messageInput.value = '';
     });
 
-    dropDown.addEventListener('click', function(event) {
+    dropDown.addEventListener('click', function (event) {
         deleteLoadedHistory();
         // console.log(event.target.tagName, event.target.innerText, event.target.id);
         loadHistory(event.target.id);
@@ -162,7 +174,5 @@ window.addEventListener("load", () => {
 
     getChats();
     updatePlaceHolder();
-    hljs.highlightAll();
 
 });
-
