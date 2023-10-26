@@ -83,6 +83,8 @@ body {
 
 /* Chat */
 .sender {
+  display: flex;
+  justify-content: flex-end;
   padding: 2% !important;
   /*    display:block;*/
 }
@@ -99,7 +101,7 @@ body {
 
 #load-chat {
   overflow-y: scroll;
-  max-height: 300px;
+  max-height: 100px;
 }
 
 #dropdown-menu {
@@ -173,4 +175,30 @@ Sender syntax highlight change
 
 #sender-md {
   background: #343a40;
+}
+
+/*-----------
+Popup box
+------------*/
+.login-box {
+  /* max-width: 500px; */
+  margin: 50px;
+  /* padding: 20px; */
+}
+
+.login-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.login-modal .modal-content {
+  background-color: #f2f2f2 !important;
+  border: 1px solid #888 !important;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 300px !important;
 }

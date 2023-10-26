@@ -15,6 +15,8 @@ app = Flask("ChatBot")
 
 @app.route('/')
 def index():
+	if chat.user_id == None:
+		return render_template('login.html')
 	return render_template('index.html')
 
 @app.route('/send_message', methods=['POST'])
@@ -22,7 +24,6 @@ def send_message():
 	message = request.json['message']
 	reply = chat.talk(message)
 	reply['content'] = markdown.markdown(json.dumps(reply['content']), extensions=['fenced_code', 'codehilite', 'toc'])
-	# print(reply)
 	return reply
 
 @app.route('/history', methods=['POST'])
@@ -35,7 +36,13 @@ def history():
 @app.route('/chats', methods=['GET'])
 def chats():
 	chats = chat.get_chats()
-	print(chats)
 	return json.dumps(chats)
+
+@app.route('/new', methods=['POST'])
+def new():
+	role = request.json['role']
+	id = chat.new_chat(role)
+	history = chat.get_history()
+	return json.dumps(history)
 
 app.run(debug=True)

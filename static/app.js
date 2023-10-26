@@ -5,11 +5,11 @@ const messageArea = document.querySelector('#message-area');
 const dropDown = document.querySelector('#load-chat');
 const clientAlias = "You";
 const serverAlias = "Bot";
-const clientImg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#dc3545\" \
+const clientImg = "<svg style=\"top:-6px; position:relative; z-index:2\" xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"18\" fill=\"#dc3545\" \
 class=\"bi bi-sign-turn-slight-right\" viewBox=\"0 0 16 16\"><path d=\"M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 \
 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.\
 664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z\"/></svg>"
-const botImg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"#17a2b8\" class=\"bi bi-robot\" \
+const botImg = "<svg style=\"top:-6px; position:relative; z-index:2\" xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"18\" fill=\"#17a2b8\" class=\"bi bi-robot\" \
 viewBox=\"0 0 16 16\"><path d=\"M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 \
 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 \
 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 \
@@ -19,6 +19,7 @@ viewBox=\"0 0 16 16\"><path d=\"M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.
 <path d=\"M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 \
 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 \
 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Z\"/></svg>"
+const circle = "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"top:25px; position:relative; z-index:1;\" width=\"100%\" height=\"35\" fill=\"currentColor\" class=\"bi bi-circle-fill\" viewBox=\"0 0 16 16\"><circle cx=\"8\" cy=\"8\" r=\"8\"/></svg>"
 
 // var converter = new showdown.Converter();
 // converter.setFlavor('vanilla');
@@ -30,15 +31,15 @@ function addMessage(origin, message) {
 
     if (origin === clientAlias) {
         messageElement.className = 'sender row'
-        imageMarkup = "<div style=\"width: 0.8%\" class=\"mr-1\">" + clientImg + "</div>"
-        messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\"><pre><code id=\"sender-md\" class=\"language-markdown\">" +
-            "" + message + "</code></pre></div>";
+        imageMarkup = "<div style=\"\" class=\"justify-content-center\">" + circle + clientImg + "</div>"
+        messageElement.innerHTML = "<div style=\"margin-left: 45%\" class=\"col text-wrap w-100\"><pre><code id=\"sender-md\" class=\"language-markdown text-wrap\">" +
+            "" + message + "</code></pre></div>" + imageMarkup;
         // messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + converter.makeHtml(message) + "</div>";
         messageArea.appendChild(messageElement);
     } else {
         messageElement.className = 'receiver row'
-        imageMarkup = "<div style=\"width: 0.8%\" class=\"mr-1\">" + botImg + "</div>"
-        messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + marked.parse(message) + "</div>";
+        imageMarkup = "<div style=\"\" class=\"justify-content-center\">" + circle + botImg + "</div>"
+        messageElement.innerHTML = imageMarkup + "<div style=\"margin-right: 45%; margin-left:15px\" class=\"col text-wrap w-100\">" + marked.parse(message) + "</div>";
         // messageElement.innerHTML = imageMarkup + "<div style=\"width: 80%\" class=\"col-md w-90\">" + converter.makeHtml(message) + "</div>";
         messageArea.appendChild(messageElement);
     }
@@ -50,6 +51,7 @@ function addMessage(origin, message) {
     // convertMarkdownToHtml();
     messageArea.scrollTop = messageArea.scrollHeight;
     messageArea.scrollIntoView(false);
+    hljs.highlightAll();
 }
 
 function deleteLoadedHistory() {
@@ -148,10 +150,25 @@ function sendMessage(message) {
         .catch(error => console.error(error));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-});
+function newChat(role){
+    fetch('/new', {
+        method: 'POST',
+        body: JSON.stringify({
+            role: role
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 
-window.addEventListener("load", () => {
+        .then(response => response.json())
+        .then(data => {
+            addMessage(serverAlias, data['content']);
+        })
+        .catch(error => console.error(error));
+}
+
+window.addEventListener("DOMContentLoaded", () => {
 
     console.log("page is fully loaded");
 

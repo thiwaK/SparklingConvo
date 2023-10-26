@@ -2,8 +2,6 @@
 *.config
 *.db
 *.txt
-core/history.txt
-core/chat_history.db
-history.txt
-chat_history.db
-settings.config
+*.pyc
+core/chatsmith_ai.py
+core\chatsmith_ai.py

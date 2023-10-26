@@ -1,6 +1,7 @@
 import requests, json, openai, os
 import logging
 from core.database import Database
+from chatsmith_ai import chat as chatsmith
 
 # Enable logging
 logging.basicConfig(
@@ -16,24 +17,22 @@ class Chat:
 		self.log = logging.getLogger(__name__)
 		self.log.info("Initalizing")
 		self.db = Database()
-		self.maximum_number_of_diogues = 8
-
-		with open("settings.config") as f:
-			openai.api_key = json.load(f)["openai_key"]
-		
-		# Setting default user
-		self.user_id = 123456
-		self.chat_id = self.__next_chat_id__()
-		self.messages = self.get_history()
-
+		self.maximum_number_of_diogues = 20
+				
+		self.user_id = self.db.get_user_id("Human")
+		self.bot_id = self.db.get_user_id("Bot")
 		self.log.info("Done")
 
 	def display(self):
+		''' For CLI
+		'''
 		for item in [obj for obj in self.history]:
 			text = self.__format_msg__(item['role'], item['content'])
 			print(text)
 
 	def __format_msg__(self, role, message):
+		''' For CLI
+		'''
 		max_length = 80
 		sender_header = ">>>"
 		reciver_header = "<<<"
@@ -61,21 +60,25 @@ class Chat:
 			next_chat_id = max(next_chat_id, chat_id)
 
 		last_chat = self.db.get_chat(self.user_id, next_chat_id)
-		if len(last_chat) == 1:
+		if len(last_chat) <= 1:
 			return next_chat_id
 
 		return next_chat_id + 1
+	
+	def new_chat(self, message, about):
+		self.db.start_new_conversation(sender_id=self.user_id, receiver_id=self.bot_id, about=about, message_text=message)
 
 	def update_history(self):
 		self.db.update_chat(self.user_id, self.chat_id, self.messages)
 
-	def get_history(self):
+	def get_history(self, role=["Act as a professional GIS assistant", "Act as a Geographical information science student" 
+		"Act as a geographical information science professor"][1]):
 		history = self.db.get_chat(self.user_id, self.chat_id)
 		if history:
 			return history
 		else:
 			# self.db.add_chat(self.user_id, self.chat_id, [{"role": "system", "content": "You are a helper bot to help user."},])
-			return [{"role": "system", "content": "You are a helper bot to help user."},]
+			return [{"role": "system", "content": role},]
 
 	def get_chats(self):
 		
